@@ -1,53 +1,23 @@
-# Pskel
+# extension_example
 
-A skeleton project for quickly setting up an environment to develop extensions for PHP.
+[`zeriyoshi/pskel`](https://github.com/zeriyoshi/pskel) を用いた PHP Extension のサンプルです。
 
-### How to use
+PHP 8.2 から利用できる `ext-random` ビルトイン拡張機能に [`libsodium`](https://github.com/jedisct1/libsodium) を用いた乱数生成器を追加するサンプル実装を含んでいます。
 
-1. Install [Visual Studio Code](https://code.visualstudio.com/) and Docker Desktop (or an alternative engine).
-1. Install the [Remote Container](https://marketplace.visualstudio.com/items?itemName=ms-vscode-remote.remote-containers) extension in VSCode.
-1. Open the directory and open it with the `Remote Container` extension.
-1. Run `pskel_init_extension` command.
-2. Run `pskel_test` command for testing.
-
-### Q&A
-
-#### Can I set up an environment using MySQL, Redis, etc.?
-
-Yes. Pskel comes pre-setup with MySQL as a example. If you want to add something, you can easily do so by editing the `compose.yaml`.
-
-#### Can I use a debug version of PHP?
-
-A debug build of PHP is included in advance. Debug builds using GCC and Clang are available, and Valgrind support is enabled. With the Clang build, you can also use MemorySanitizer.
-
-They each have the following binary prefixes. The build toolchains are the same.
-
-- `debug-php`
-- `gcc-valgrind-php`
-- `clang-msan-php`
-- `clang-asan-php`
-- `clang-ubsan-php`
-
-For example, the method to test the extension using GCC + Valgrind is as follows:
+### Usage
 
 ```
-# gcc-valgrind-phpize
-# ./configure --with-php-config=$(which gcc-valgrind-php-config)
-# TEST_PHP_ARGS="-q -m --show-diff" make -j$(nproc) test
+$ git clone --recursive "https://github.com/colopl/php-extension_example" "extension_example"
+$ cd "extension_example/ext"
+$ phpize && ./configure --with-php-config="$(which php-config)"
+$ make -j"$(nproc)" && make test
+$ [sudo] make install
 ```
 
-#### Can I debug using gdb?
+### Development
 
-Yes. Build using the debug version of PHP and run as follows:
+このプロジェクトは [`zeriyoshi/pskel`](https://github.com/zeriyoshi/pskel) をベースに作成されています。基本的な使い方は Pskel と同様です。
 
-```
-# gdb --args gcc-valgrind-php -dextension=./modules/your_extension_name.so example.php
-```
-
-#### Can I develop using something other than Visual Studio Code?
-
-While it's not recommended, it's possible. You can using Docker Compose (or a alternative engine).
-
-### License
+### LICENSE
 
 PHP License 3.01

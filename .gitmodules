@@ -1,0 +1,4 @@
+[submodule "jedisct1/libsodium"]
+	path = ext/third_party/libsodium
+	url = https://github.com/jedisct1/libsodium.git
+	branch = 1.0.20-RELEASE

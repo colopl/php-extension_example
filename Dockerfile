@@ -126,4 +126,12 @@ WORKDIR "/usr/src/php"
 COPY ./pskel_test.sh /usr/bin/pskel_test
 COPY ./pskel_init_extension.sh /usr/bin/pskel_init_extension
 
+# Install libsodium
+COPY ./ext/third_party/libsodium "/ext/third_party/libsodium"
+RUN cd "/ext/third_party/libsodium" \
+ &&   ./configure \
+ &&   make -j"$(nproc)" \
+ &&   make install \
+ && cd -
+
 COPY ./ext /ext
